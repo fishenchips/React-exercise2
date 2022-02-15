@@ -37,6 +37,10 @@ function TodoApp() {
     ]
     const [todos, setTodos] = useState(defaultTodos);
 
+    const handleClick = (e) => {
+        e.target.classList.add("done")
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -60,8 +64,8 @@ function TodoApp() {
             {
                 defaultTodos.map( (todo) => (
                     todo.id%2 != 0
-                        ? <Todo key={todo.id} todo={todo} addClass="odd" />
-                        : <Todo key={todo.id} todo={todo} addClass=""/>
+                        ? <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass="odd" />
+                        : <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass=""/>
                 ))
             }
         </ul>
