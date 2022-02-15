@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Todo from './Todo';
 
 /**
  * Part 1: Generate list (See generate-todo-list-solution-1 )
@@ -55,8 +56,15 @@ function TodoApp() {
     }
 
     return (
-        <div>
-        </div>
+        <ul>
+            {
+                defaultTodos.map( (todo) => (
+                    todo.id%2 != 0
+                        ? <Todo key={todo.id} todo={todo} addClass="odd" />
+                        : <Todo key={todo.id} todo={todo} addClass=""/>
+                ))
+            }
+        </ul>
     )
 }
 
