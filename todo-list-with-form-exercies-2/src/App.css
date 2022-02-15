@@ -1,0 +1,9 @@
+.odd {
+  background-color: beige
+}
+
+.done,
+.done p,
+.done li {
+  text-decoration: line-through;
+}
