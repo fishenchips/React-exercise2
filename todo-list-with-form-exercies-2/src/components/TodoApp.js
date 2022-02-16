@@ -35,7 +35,14 @@ function TodoApp() {
         {id: 4, task: 'Syssla 4'},
         {id: 5, task: 'Syssla 5'}
     ]
-    const [todos, setTodos] = useState(defaultTodos);
+    //hooks for adding new todos and to change tasks
+    const [todos, setTodos] = useState(defaultTodos)
+    const [task, setTask] = useState("");
+
+    //function sets input field value == to setTask
+    const handleChange = (e) => {
+        setTask(e.target.value)
+    }
 
     const handleClick = (e) => {
         e.target.classList.add("done")
@@ -48,7 +55,7 @@ function TodoApp() {
         // There are libraries that are more suitable for this job
         const randomId = Math.random() * 1000;  
 
-        const newTodo = {id: randomId, task: this.state.task};
+        const newTodo = {id: randomId, task: task};
 
         // Using the spread operator to add a new element to an array, 
         // because its not allowed to change the state directly
@@ -57,18 +64,28 @@ function TodoApp() {
             ...todos,
             newTodo
         ])
+        // all newTodo will have an odd value (so there are better ways to solve every other Li, such as a counter)
     }
 
     return (
-        <ul>
-            {
-                defaultTodos.map( (todo) => (
-                    todo.id%2 != 0
-                        ? <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass="odd" />
-                        : <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass=""/>
-                ))
-            }
-        </ul>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <label>Add task:</label>
+                <input type="text" /* name='todos' */ value={task} onChange={handleChange} />
+                <br />
+                <button>Submit</button>
+            </form>
+            <ul>
+                { 
+                //map thru state rather than the array, because otherwise it wont work
+                    todos.map( (todo) => (
+                        todo.id%2 !== 0
+                            ? <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass="odd" />
+                            : <Todo key={todo.id} todo={todo} handleClick={handleClick} addClass=""/>
+                    ))
+                }
+            </ul>
+        </div>
     )
 }
 
